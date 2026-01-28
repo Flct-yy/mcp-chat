@@ -25,130 +25,136 @@ Agent 会根据用户输入判断是否需要调用工具，工具以 schema 的
 
 
 
-# AI Chat Application
+# AI 聊天应用
 
-A minimalist chat application with OpenAI API integration and file upload support.
+一个集成 OpenAI API 并支持文件上传的极简聊天应用。
 
-## Features
+## 功能特点
 
-- 🤖 OpenAI API integration (GPT-4 compatible)
-- 📎 File upload support (PDF, Word, Excel, Images)
-- 🎨 Minimalist design with dark/light themes
-- ⚡ Built with Vite + React + TypeScript
-- 🎯 Tailwind CSS 4 for styling
-- 🔐 Session management
-- 💾 Local conversation storage
+- 🤖 集成 OpenAI API（兼容 GPT-4）
+- 📎 支持文件上传（PDF、Word、Excel、图片）
+- 🎨 极简设计，支持深色/浅色主题
+- ⚡ 使用 Vite + React + TypeScript 构建
+- 🎯 使用 Tailwind CSS 4 进行样式设计
+- 🔐 会话管理
+- 💾 本地对话存储
 
-## Quick Start
+## 快速开始
 
-### Prerequisites
+### 前置要求
 
 - Node.js 18+ 
-- npm or pnpm
-- OpenAI API key (optional for development)
+- npm 或 pnpm
+- OpenAI API 密钥（开发时可选）
 
-### Installation
+### 安装
 
 ```bash
-# Clone the repository
+# 克隆仓库
 git clone <your-repo-url>
 cd boilerplate-vite-ts-tailwindcss-shadcn
 
-# Install dependencies
+# 安装依赖
 npm install
 
-# Create environment file
+# 创建环境文件
 cp .env.example .env
 
-# Add your OpenAI API key to .env
+# 在 .env 中添加你的 OpenAI API 密钥
 # VITE_OPENAI_API_KEY=your-api-key-here
 ```
 
-### Development
+### 开发
 
 ```bash
-# Start development server
+# 启动开发服务器
 npm run dev
 
-# Build for production
+# 构建生产版本
 npm run build
 
-# Preview production build
+# 预览生产构建
 npm run preview
 ```
 
-## Configuration
+## 配置
 
-### Environment Variables
+### 环境变量
 
-Create a `.env` file in the root directory:
+在根目录创建 `.env` 文件：
 
 ```env
-# API Configuration
-VITE_API_BASE_URL=http://localhost:3000  # Your backend URL
-VITE_OPENAI_API_KEY=sk-...              # OpenAI API key
-VITE_OPENAI_MODEL=gpt-4                 # Model to use
+# API 配置
+VITE_API_BASE_URL=http://localhost:3000  # 你的后端 URL
+VITE_OPENAI_API_KEY=sk-...              # OpenAI API 密钥
+VITE_OPENAI_MODEL=gpt-4                 # 使用的模型
 ```
 
-### Using with OpenAI API
+### 使用 OpenAI API
 
-1. **Direct OpenAI Connection:**
+1. **直接连接 OpenAI：**
    ```env
    VITE_API_BASE_URL=https://api.openai.com
    VITE_OPENAI_API_KEY=sk-your-key-here
    ```
 
-2. **Using a Backend Proxy:**
+2. **使用后端代理：**
    ```env
    VITE_API_BASE_URL=http://localhost:3000
-   # API key handled by backend
+   # API 密钥由后端处理
    ```
 
-## API Endpoints
+## API 端点
 
-The application expects the following endpoints (OpenAI-compatible):
+应用期望以下端点（兼容 OpenAI）：
 
-- `POST /v1/chat/completions` - Chat completions
-- `POST /v1/files` - File upload
-- `GET /v1/files` - List files
-- `DELETE /v1/files/:id` - Delete file
-- `GET /v1/sessions` - List sessions
-- `DELETE /v1/sessions/:id` - Delete session
+- `POST /v1/chat/completions` - 聊天完成
+- `POST /v1/files` - 文件上传
+- `GET /v1/files` - 列出文件
+- `DELETE /v1/files/:id` - 删除文件
+- `GET /v1/sessions` - 列出会话
+- `DELETE /v1/sessions/:id` - 删除会话
 
-## File Upload
+## 文件上传
 
-Supported file types:
-- Documents: PDF, Word (.doc, .docx), Text (.txt)
-- Spreadsheets: Excel (.xlsx, .xls), CSV
-- Images: PNG, JPG, JPEG
-- Data: JSON, Markdown
+支持的文件类型：
+- 文档：PDF、Word (.doc, .docx)、文本 (.txt)
+- 电子表格：Excel (.xlsx, .xls)、CSV
+- 图片：PNG、JPG、JPEG
+- 数据：JSON、Markdown
 
-Max file size: 10MB per file
+每个文件最大大小：10MB
 
-## Tech Stack
+## 技术栈
 
-- **Frontend:** React 18, TypeScript
-- **Build:** Vite 5
-- **Styling:** Tailwind CSS 4, shadcn/ui
-- **State:** React Context API
-- **Storage:** LocalStorage
-- **API:** OpenAI-compatible REST API
+- **前端：** React 18、TypeScript
+- **构建：** Vite 5
+- **样式：** Tailwind CSS 4、shadcn/ui
+- **状态管理：** React Context API
+- **存储：** LocalStorage
+- **API：** 兼容 OpenAI 的 REST API
 
-## Project Structure
+## 项目结构
+
 
 ```
 src/
-├── components/       # React components
-│   ├── ui/          # shadcn/ui components
-│   ├── chat/        # Chat-specific components
-│   └── auth/        # Authentication components
-├── contexts/        # React contexts
-├── services/        # API services
-├── config/          # Configuration files
-├── hooks/           # Custom React hooks
-├── lib/            # Utility functions
-├── pages/          # Page components
-└── types/          # TypeScript types
+├── components/       # React 组件
+│   ├── ui/          # shadcn/ui 组件
+│   ├── chat/        # 聊天相关组件
+│   ├── auth/        # 认证组件
+│   └── mcp/         # MCP 相关组件
+├── contexts/        # React 上下文
+├── mcp/             # MCP Client 核心实现
+│   ├── client/      # MCP Client 逻辑
+│   ├── agent/       # Agent 决策流程
+│   └── tools/       # 工具定义与实现
+├── services/        # API 服务
+├── config/          # 配置文件
+├── hooks/           # 自定义 React hooks
+├── lib/             # 工具函数
+├── pages/           # 页面组件
+└── types/           # TypeScript 类型定义
 ```
 
 ## License
